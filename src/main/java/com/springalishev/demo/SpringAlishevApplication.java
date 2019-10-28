@@ -1,0 +1,33 @@
+package com.springalishev.demo;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+@SpringBootApplication
+@Configuration
+public class SpringAlishevApplication {
+
+    private static final Logger logger = LogManager.getLogger(SpringAlishevApplication.class);
+
+    public static void main(String[] args) {
+        ApplicationContext context = SpringApplication.run(SpringAlishevApplication.class, args);
+
+        Music music = context.getBean(ClassicalMusic.class);
+        MusicPlayer musicPlayer = new MusicPlayer(music);
+        musicPlayer.playMusic();
+
+    }
+
+    @Bean
+    ClassicalMusic classicalMusic() {
+        return new ClassicalMusic();
+    }
+
+}
